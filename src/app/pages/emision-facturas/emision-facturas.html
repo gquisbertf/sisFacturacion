@@ -1,0 +1,162 @@
+<div style="max-width: 1100px; margin: 2rem auto; padding: 0 1rem;">
+
+  <header style="margin-bottom: 2rem;">
+    <h1 class="mat-headline-medium" style="font-weight: 700; color: #1e293b; margin: 0;">
+      Emisión de Factura Detallada
+    </h1>
+    <p class="mat-body-medium" style="color: #64748b;">Complete los datos para generar el comprobante fiscal.</p>
+  </header>
+
+  <mat-card appearance="outlined" style="border-radius: 16px;">
+    <mat-card-content style="padding: 2rem;">
+      <form [formGroup]="form">
+
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem;">
+          <mat-icon color="primary">account_circle</mat-icon>
+          <h3 class="mat-title-small" style="margin: 0; font-weight: 600;">Información del Cliente</h3>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+          <mat-form-field appearance="outline">
+            <mat-label>Tipo Documento</mat-label>
+            <mat-select formControlName="tipoDocumento">
+              <mat-option *ngFor="let tipoDocumento of listaTipoDocumento()" [value]="tipoDocumento.valor">
+                {{tipoDocumento.descripcion}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Número de Documento</mat-label>
+            <input matInput placeholder="Ej: 1234567" formControlName="documento">
+            <button matSuffix mat-icon-button type="button" (click)="buscarCliente()">
+              <mat-icon>search</mat-icon>
+            </button>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Razón Social</mat-label>
+            <input matInput placeholder="Nombre o Empresa" formControlName="razonSocial">
+          </mat-form-field>
+        </div>
+
+        <mat-divider style="margin: 2rem 0;"></mat-divider>
+
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem;">
+          <mat-icon color="primary">payments</mat-icon>
+          <h3 class="mat-title-small" style="margin: 0; font-weight: 600;">Condiciones de Venta</h3>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <mat-form-field appearance="outline">
+            <mat-label>Método de Pago</mat-label>
+            <mat-select formControlName="metodoPago">
+              <mat-option *ngFor="let metodoPago of listaTipoMetodoPago()" [value]="metodoPago.valor">
+                {{metodoPago.descripcion}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Moneda</mat-label>
+            <mat-select formControlName="moneda">
+              <mat-option *ngFor="let moneda of listaTipoMoneda()" [value]="moneda.valor">
+                {{moneda.descripcion}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <mat-divider style="margin: 2rem 0;"></mat-divider>
+
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <mat-icon color="primary">shopping_basket</mat-icon>
+            <h3 class="mat-title-small" style="margin: 0; font-weight: 600;">Selección de Productos</h3>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.5rem;">
+          <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>Buscar producto...</mat-label>
+            <input type="text" matInput [formControl]="productoControl" [matAutocomplete]="auto"
+              (keydown.enter)="$event.preventDefault(); agregarALaTabla()"> <mat-autocomplete #auto="matAutocomplete"
+              (optionSelected)="capturarProducto($event)" [displayWith]="mostrarDescripcion"> @for (producto of
+              productosFiltrados(); track producto.codigo) {
+              <mat-option [value]="producto">
+                {{ producto.descripcion }} - <small>{{ producto.codigo }}</small>
+              </mat-option>
+              }
+            </mat-autocomplete>
+          </mat-form-field>
+
+          <button mat-flat-button color="primary" type="button" (click)="agregarALaTabla()"
+            [disabled]="!productoTemporal" style="height: 56px; padding: 0 2rem;">
+            <mat-icon>add</mat-icon> AGREGAR
+          </button>
+        </div>
+
+        <div style="border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
+          <table mat-table [dataSource]="items()" style="width: 100%;">
+            <ng-container matColumnDef="codigo">
+              <th mat-header-cell *matHeaderCellDef style="background: #f8fafc; color: #64748b;"> CÓDIGO </th>
+              <td mat-cell *matCellDef="let element"> {{element.codigo}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="descripcion">
+              <th mat-header-cell *matHeaderCellDef style="background: #f8fafc; color: #64748b;"> DESCRIPCIÓN </th>
+              <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="monto">
+              <th mat-header-cell *matHeaderCellDef style="background: #f8fafc; color: #64748b; text-align: right;">
+                MONTO </th>
+              <td mat-cell *matCellDef="let element" style="text-align: right;"> {{element.monto | number:'1.2-2'}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="acciones">
+              <th mat-header-cell *matHeaderCellDef style="background: #f8fafc; color: #64748b; text-align: center;">
+                ACCIONES
+              </th>
+              <td mat-cell *matCellDef="let element; let i = index" style="text-align: center;">
+                <button mat-icon-button color="warn" (click)="eliminarFila(i)">
+                  <mat-icon>delete_outline</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns; let idx = index;"></tr>
+          </table>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; margin-top: 2rem;">
+          <div style="width: 280px; background: #f8fafc; padding: 1.5rem; border-radius: 12px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+              <span style="color: #64748b;">Subtotal</span>
+              <span style="font-weight: 600;">45.00</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+              <span style="color: #64748b;">IVA (13%)</span>
+              <span style="font-weight: 600;">5.85</span>
+            </div>
+            <mat-divider style="margin: 1rem 0;"></mat-divider>
+            <div style="display: flex; justify-content: space-between; color: #3b82f6;">
+              <span style="font-weight: 700; font-size: 1.1rem;">Total Pagar</span>
+              <span style="font-weight: 800; font-size: 1.1rem;">50.85 BOB</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 3rem; display: flex; justify-content: flex-end; gap: 1rem;">
+          <button mat-button type="button">CANCELAR</button>
+          <button mat-flat-button color="primary" type="submit" style="padding: 0 3rem; border-radius: 8px;">
+            <mat-icon>send</mat-icon> EMITIR FACTURA
+          </button>
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

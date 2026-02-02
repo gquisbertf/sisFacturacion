@@ -1,0 +1,107 @@
+.main-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #e9ecef; // Fondo gris claro de la imagen
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+  background: white;
+}
+
+.header-section {
+  text-align: center;
+  margin-bottom: 24px;
+
+  .blue-icon-container {
+    background-color: #eef4ff;
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 16px;
+    
+    mat-icon {
+      font-size: 32px;
+      width: 32px;
+      height: 32px;
+      color: #4a80d4;
+    }
+  }
+
+  h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+    color: #333;
+  }
+
+  p {
+    font-size: 14px;
+    color: #666;
+    margin-top: 8px;
+  }
+}
+
+.input-group {
+  margin-bottom: 8px;
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #444;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.captcha-box {
+  border: 2px dashed #ced4da;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  margin: 20px 0;
+  background-color: #fafafa;
+
+  .captcha-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .captcha-info {
+    font-size: 12px;
+    color: #999;
+    margin: 0;
+  }
+}
+
+.btn-login {
+  background-color: #4a80d4 !important; // El azul de la imagen
+  color: white !important;
+  padding: 24px 0 !important;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 8px !important;
+}
+
+.footer-links {
+  text-align: center;
+  margin-top: 20px;
+  a {
+    font-size: 14px;
+    color: #4a80d4;
+    text-decoration: none;
+    &:hover { text-decoration: underline; }
+  }
+}

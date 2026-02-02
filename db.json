@@ -1,0 +1,168 @@
+{
+    "tipos-documento": {
+        "respuesta": {
+            "tipoMensaje": "200",
+            "mensaje": "Operación exitosa"
+        },
+        "lista": [
+            {
+                "valor": "1",
+                "descripcion": "CI - CÉDULA DE IDENTIDAD"
+            },
+            {
+                "valor": "2",
+                "descripcion": "CEX - CÉDULA DE IDENTIDAD DE EXTRANJERO"
+            },
+            {
+                "valor": "5",
+                "descripcion": "NIT - NÚMERO DE IDENTIFICACIÓN TRIBUTARIA"
+            }
+        ]
+    },
+    "tipos-metodo-pago": {
+        "respuesta": {
+            "tipoMensaje": "200",
+            "mensaje": "Operación exitosa"
+        },
+        "lista": [
+            {
+                "valor": "1",
+                "descripcion": "EFECTIVO"
+            },
+            {
+                "valor": "2",
+                "descripcion": "TARJETA"
+            }
+        ]
+    },
+    "tipos-moneda": {
+        "respuesta": {
+            "tipoMensaje": "200",
+            "mensaje": "Operación exitosa"
+        },
+        "lista": [
+            {
+                "valor": "1",
+                "descripcion": "BOB"
+            },
+            {
+                "valor": "2",
+                "descripcion": "USD"
+            }
+        ]
+    },
+    "clientes": {
+        "respuesta": {
+            "tipoMensaje": "200",
+            "mensaje": "Operación exitosa"
+        },
+        "cliente": {
+            "id": 1,
+            "nombre": "Juan",
+            "apellido": "Perez",
+            "tipoDocumento": "1",
+            "numeroDocumento": "12345678",
+            "correo": "[EMAIL_ADDRESS]",
+            "telefono": "12345678",
+            "direccion": "Calle 123",
+            "razonSocial": ""
+        }
+    },
+    "productos": {
+        "respuesta": {
+            "tipoMensaje": "200",
+            "mensaje": "Operación exitosa"
+        },
+        "lista": [
+            {
+                "id": 1,
+                "codigo": "12345678",
+                "descripcion": "Mouse",
+                "precio": 100,
+                "stock": 10
+            },
+            {
+                "id": 2,
+                "codigo": "5622270455",
+                "descripcion": "Teclado",
+                "precio": 200,
+                "stock": 20
+            },
+            {
+                "id": 3,
+                "codigo": "4564879",
+                "descripcion": "Monitor",
+                "precio": 200,
+                "stock": 20
+            },
+            {
+                "id": 4,
+                "codigo": "111122234",
+                "descripcion": "CPU",
+                "precio": 200,
+                "stock": 20
+            },
+            {
+                "id": 5,
+                "codigo": "555545454",
+                "descripcion": "Impresora",
+                "precio": 200,
+                "stock": 20
+            },
+            {
+                "id": 6,
+                "codigo": "6664654646",
+                "descripcion": "Webcam",
+                "precio": 200,
+                "stock": 20
+            },
+            {
+                "id": 7,
+                "codigo": "797978758",
+                "descripcion": "Parlantes",
+                "precio": 200,
+                "stock": 20
+            },
+            {
+                "id": 8,
+                "codigo": "2225464",
+                "descripcion": "Disco Duro",
+                "precio": 200,
+                "stock": 20
+            },
+            {
+                "id": 9,
+                "codigo": "879798797",
+                "descripcion": "Memoria RAM",
+                "precio": 200,
+                "stock": 20
+            },
+            {
+                "id": 10,
+                "codigo": "79875464",
+                "descripcion": "Tarjeta de Video",
+                "precio": 200,
+                "stock": 20
+            },
+            {
+                "id": 11,
+                "codigo": "87654321",
+                "descripcion": "Tarjeta Madre",
+                "precio": 200,
+                "stock": 20
+            }
+        ]
+    },
+    "facturas": [
+        {
+            "id": 1,
+            "cliente": "Juan Perez",
+            "monto": 100
+        },
+        {
+            "id": 2,
+            "cliente": "Maria Gomez",
+            "monto": 250
+        }
+    ]
+}

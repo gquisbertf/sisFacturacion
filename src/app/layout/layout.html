@@ -1,0 +1,82 @@
+<mat-sidenav-container class="layout-container">
+
+  <mat-sidenav #sidenav mode="side" opened class="sidenav">
+    <div class="sidenav-header">
+      <div class="logo-circle">
+        <mat-icon>receipt_long</mat-icon>
+      </div>
+      <div class="logo-text">
+        <span class="title">FACTURA</span>
+        <span class="subtitle">Online</span>
+      </div>
+    </div>
+
+    <mat-nav-list class="nav-menu">
+      <div class="menu-label">PRINCIPAL</div>
+
+      <a mat-list-item routerLink="/facturas" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>point_of_sale</mat-icon>
+        <span matListItemTitle>Emisión de facturas</span>
+      </a>
+
+      <a mat-list-item routerLink="/notas" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>Assignment_return</mat-icon>
+        <span matListItemTitle>Emisión de notas de crédito débito</span>
+      </a>
+
+      <a mat-list-item routerLink="/anulacion" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>event_busy</mat-icon>
+        <span matListItemTitle>Anulación de documentos fiscales</span>
+      </a>
+
+      <a mat-list-item routerLink="/reversion" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>history</mat-icon>
+        <span matListItemTitle>Reversión anulación de documentos fiscales</span>
+      </a>
+
+      <a mat-list-item routerLink="/contingencias" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>wifi_off</mat-icon>
+        <span matListItemTitle>Contingencias</span>
+      </a>
+
+      <a mat-list-item routerLink="/reportes" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>assessment</mat-icon>
+        <span matListItemTitle>Reportes</span>
+      </a>
+
+      <div class="menu-divider"></div>
+      <div class="menu-label">CONFIGURACIÓN</div>
+
+      <a mat-list-item routerLink="/perfil" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>manage_accounts</mat-icon>
+        <span matListItemTitle>Mi Cuenta</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar class="toolbar">
+      <button mat-icon-button (click)="sidenav.toggle()" class="menu-toggle">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <span class="spacer"></span>
+
+      <div class="user-pill">
+        <mat-icon>account_circle</mat-icon>
+        <div class="user-info">
+          <span class="user-name">{{ user?.name || 'Administrador' }}</span>
+          <span class="user-role">Online</span>
+        </div>
+      </div>
+
+      <button mat-icon-button (click)="logout()" matTooltip="Cerrar sesión" class="logout-btn">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
